@@ -1,8 +1,8 @@
-package controller;
+package library.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import model.Book;
+import library.model.Book;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
