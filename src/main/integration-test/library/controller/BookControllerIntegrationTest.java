@@ -29,10 +29,9 @@ public class BookControllerIntegrationTest {
     @MockBean
     private BookRepository bookRepository;
 
-
     @Test
-    public void add() throws Exception {
-        Book book = new Book(123L, "teste");
+    public void addBook() throws Exception {
+        Book book = new Book(123L, "Walking Dead: 1 Season");
 
         mockMvc.perform(post("/book")
                 .content(new JSONObject(book).toString())
@@ -47,7 +46,7 @@ public class BookControllerIntegrationTest {
 
     @Test
     public void findAll() throws Exception {
-        Book book = new Book(123L, "teste");
+        Book book = new Book(123L, "Walking Dead: 1 Season");
 
         mockMvc.perform(post("/api/book")
                 .content(new JSONObject(book).toString())
