@@ -1,62 +1,48 @@
 package library.controller;
 
 import library.model.Book;
-import library.repository.BookRepository;
-import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(BookRepository.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @PropertySource("classpath:application.properties")
 public class BookControllerIntegrationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    private final String bookName = "Walking Dead: 1 Season";
 
-    @MockBean
-    private BookRepository bookRepository;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
     public void addBook() throws Exception {
-        Book book = new Book(123L, "Walking Dead: 1 Season");
+        Book book = new Book(bookName);
 
-        mockMvc.perform(post("/book")
-                .content(new JSONObject(book).toString())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        ResponseEntity<Book> addedBook = this.restTemplate.postForEntity("/book", book, Book.class);
 
-        mockMvc.perform(get("/book/123"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string("[{\"id\":123,\nname\":\"teste\"}]"));
+        assertThat(addedBook.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(addedBook.getBody().getName()).isEqualTo(bookName);
     }
 
     @Test
-    public void findAll() throws Exception {
-        Book book = new Book(123L, "Walking Dead: 1 Season");
+    public void findBook() throws Exception {
+        Book book = new Book(bookName);
 
-        mockMvc.perform(post("/api/book")
-                .content(new JSONObject(book).toString())
-                .contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+        ResponseEntity<Book> addedBookResponse = this.restTemplate.postForEntity("/book", book, Book.class);
+        Long addedBookResponseId = addedBookResponse.getBody().getId();
 
-        mockMvc.perform(get("/api/books"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().string("[{\"id\":123,\nname\":\"teste\"}]"));
+        ResponseEntity<Book> bookResponse = this.restTemplate.getForEntity(String.format("/book/%d", addedBookResponseId), Book.class);
+
+        assertThat(bookResponse.getBody().getId()).isEqualTo(addedBookResponseId);
     }
 
 }
