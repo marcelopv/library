@@ -16,13 +16,21 @@ public class BookRepositoryTest {
     @Autowired
     BookRepository bookRepository;
 
+    private String bookName = "Waling Dead: 1 Season";
+
     @Test
     public void shouldAddBook() throws Exception {
-        String bookName = "Waling Dead: 1 Season";
-        long bookId = 123L;
-
-        Book save = this.bookRepository.save(new Book(bookId, bookName));
+        Book save = this.bookRepository.save(new Book(bookName));
 
         assertThat(save.getName()).isEqualTo(bookName);
+    }
+
+    @Test
+    public void shouldReadBook() throws Exception {
+        Book save = this.bookRepository.save(new Book(bookName));
+
+        Book book = this.bookRepository.findOne(save.getId());
+
+        assertThat(book.getName()).isEqualTo(bookName);
     }
 }
