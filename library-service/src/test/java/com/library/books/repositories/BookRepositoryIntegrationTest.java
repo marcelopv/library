@@ -15,24 +15,22 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@PropertySource("classpath:application-dev.properties")
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-public class BookRepositoryTest {
+public class BookRepositoryIntegrationTest {
 
     @Autowired
     private BookRepository bookRepository;
 
-    private String bookName = "Waling Dead: 1 Season";
+    private String bookName = "Walking Dead: 1 Season";
 
     @Test
-    public void shouldAddBook() throws Exception {
+    public void shouldAddBook() {
         Book save = this.bookRepository.save(new Book(bookName));
 
         assertThat(save.getName()).isEqualTo(bookName);
     }
 
     @Test
-    public void shouldReadBook() throws Exception {
+    public void shouldReadBook() {
         Book save = this.bookRepository.save(new Book(bookName));
 
         Optional<Book> book = this.bookRepository.findById(save.getId());
