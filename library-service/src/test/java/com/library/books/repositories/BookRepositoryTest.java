@@ -1,15 +1,17 @@
-package library.repository;
+package com.library.books.repositories;
 
-import library.model.Book;
+import com.library.books.model.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -33,8 +35,8 @@ public class BookRepositoryTest {
     public void shouldReadBook() throws Exception {
         Book save = this.bookRepository.save(new Book(bookName));
 
-        Book book = this.bookRepository.findOne(save.getId());
+        Optional<Book> book = this.bookRepository.findById(save.getId());
 
-        assertThat(book.getName()).isEqualTo(bookName);
+        book.ifPresent(presentBook -> assertThat(presentBook.getName()).isEqualTo(bookName));
     }
 }

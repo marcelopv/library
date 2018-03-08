@@ -1,4 +1,4 @@
-package library.model;
+package com.library.books.model;
 
 import javax.persistence.*;
 
