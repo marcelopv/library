@@ -4,6 +4,6 @@ Library API to experiment Spring Boot applications.
 **TechStack:**
 - Java8
 - SpringBoot
-- Gradle
+- Maven
 - REST
 

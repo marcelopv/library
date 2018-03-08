@@ -1,7 +1,4 @@
-.gradle/
 build/
 .idea/
-gradle/
-gradlew.*
-gradlew
 *.iml
+*/target
