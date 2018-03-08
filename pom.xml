@@ -11,6 +11,8 @@
 
     <modules>
         <module>library-service</module>
+        <module>notification-service</module>
+        <module>database-migrations</module>
     </modules>
 
     <parent>
@@ -59,12 +61,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.2.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>5.0.7</version>
         </dependency>
 
         <dependency>
