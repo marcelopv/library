@@ -1,8 +1,9 @@
 spring:
   application:
-    name: libraryapi
-  profiles:
-    active: dev
+    name: library-api
   cloud:
     config:
       uri: http://localhost:8888
+
+server:
+  port: 8081
