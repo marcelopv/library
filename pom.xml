@@ -11,6 +11,7 @@
 
     <modules>
         <module>database-migrations</module>
+        <module>notification-service</module>
         <module>library-service</module>
         <module>discovery-server</module>
     </modules>
