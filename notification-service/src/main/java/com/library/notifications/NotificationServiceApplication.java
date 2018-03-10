@@ -1,4 +1,4 @@
-package com.library;
+package com.library.notifications;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,9 +6,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
 @SpringBootApplication
-public class App {
+public class NotificationServiceApplication {
 
-  public static void main(String[] args){
-    SpringApplication.run(App.class, args);
-  }
+    public static void main(String[] args){
+        SpringApplication.run(NotificationServiceApplication.class, args);
+    }
 }
