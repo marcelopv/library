@@ -1,9 +1,8 @@
-# library-api
-Library API to experiment Spring Boot applications.
+# library
+Library is a multi module project to experiment Spring applications.
 
-**TechStack:**
-- Java8
-- SpringBoot
+**Features:**
+- Java 8
+- Spring Boot
+- Spring Cloud
 - Maven
-- REST
-
