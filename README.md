@@ -5,4 +5,5 @@ Library is a multi module project to experiment Spring applications.
 - Java 8
 - Spring Boot
 - Spring Cloud
+- Docker
 - Maven
